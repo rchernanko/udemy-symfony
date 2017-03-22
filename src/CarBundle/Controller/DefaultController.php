@@ -12,6 +12,14 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('CarBundle:Default:index.html.twig');
+        $cars = [
+            ['make' => 'BMW', 'name' => 'X1'],
+            ['make' => 'Fiat', 'name' => 'Croma'],
+            ['make' => 'Audi', 'name' => 'Q7'],
+        ];
+
+        //now we need to pass our array to a view - the second param in the render function below:
+
+        return $this->render('CarBundle:Default:index.html.twig', ['cars' => $cars]);
     }
 }
