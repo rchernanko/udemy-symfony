@@ -22,11 +22,13 @@ class Car
     private $id;
 
     /**
-     * @var string
+     * @var Model
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="CarBundle\Entity\Model", inversedBy="cars")
      */
-    private $name;
+    private $model;
+    //Many cars can be associated with 1 model, hence the many to one e.g. Many Cars can be an 'X1'
+    //So if we want to see the relationship in the Make entity class, we also need to add an inversedBy field
 
     /**
      * @var string
@@ -83,30 +85,6 @@ class Car
     public function setName($name)
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set make
-     *
-     * @param string $make
-     *
-     * @return Car
-     */
-    public function setMake($make)
-    {
-        $this->make = $make;
 
         return $this;
     }
