@@ -31,9 +31,9 @@ class Car
     //So if we want to see the relationship in the Make entity class, we also need to add an inversedBy field
 
     /**
-     * @var string
+     * @var Make
      *
-     * @ORM\Column(name="make", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="CarBundle\Entity\Make", inversedBy="cars")
      */
     private $make;
 
@@ -76,15 +76,15 @@ class Car
     }
 
     /**
-     * Set name
+     * Set make
      *
-     * @param string $name
+     * @param Make $make
      *
      * @return Car
      */
-    public function setName($name)
+    public function setMake($make)
     {
-        $this->name = $name;
+        $this->make = $make;
 
         return $this;
     }
@@ -92,7 +92,7 @@ class Car
     /**
      * Get make
      *
-     * @return string
+     * @return Make
      */
     public function getMake()
     {
