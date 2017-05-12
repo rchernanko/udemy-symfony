@@ -2,6 +2,7 @@
 
 namespace CarBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,6 +29,16 @@ class Model
      */
     private $name;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="CarBundle\Entity\Car", mappedBy="model")
+     */
+    private $cars;
+    //mappedBy = see my notes within evernote for why this mappedBy and not inversedBy - related to the manytoone + onetomany
+    //'model' is the name of the field within the Car Entity
+    //We want to return an array of cars - but doctrine is not using array directly - so we use ArrayCollection
+    //ArrayCollection - a class that represents something very similar to the array but it has some helper methods too (e.g. to add / remove)
 
     /**
      * Get id
@@ -62,5 +73,45 @@ class Model
     {
         return $this->name;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cars = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add car
+     *
+     * @param \CarBundle\Entity\Car $car
+     *
+     * @return Model
+     */
+    public function addCar(\CarBundle\Entity\Car $car)
+    {
+        $this->cars[] = $car;
+
+        return $this;
+    }
+
+    /**
+     * Remove car
+     *
+     * @param \CarBundle\Entity\Car $car
+     */
+    public function removeCar(\CarBundle\Entity\Car $car)
+    {
+        $this->cars->removeElement($car);
+    }
+
+    /**
+     * Get cars
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCars()
+    {
+        return $this->cars;
+    }
+}
