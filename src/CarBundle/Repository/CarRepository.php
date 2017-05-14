@@ -10,4 +10,28 @@ namespace CarBundle\Repository;
  */
 class CarRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findCarsWithDetails()
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb->select('c', 'make', 'model');
+        //By default, it will query ALL the data from our Entity (i.e. CarRepository is already linked with CarEntity)
+        //So I don't need to put a 'from' in, it does it by default (from the Car table)
+        $qb->join('c.make', 'make');
+        $qb->join('c.model', 'model');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findCarWithDetailsById($id)
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb->select('c', 'make', 'model');
+        $qb->join('c.make', 'make');
+        $qb->join('c.model', 'model');
+        $qb->where('c.id = :id');
+        $qb->setParameter('id', $id);
+
+        //getSingleResult = returns one row from the query
+        return $qb->getQuery()->getSingleResult();
+    }
 }

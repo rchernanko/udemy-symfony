@@ -14,7 +14,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $carRepository = $this->getDoctrine()->getRepository(Car::class);
-        $cars = $carRepository->findAll();
+        $cars = $carRepository->findCarsWithDetails();
 
         //now we need to pass our array to a view - the second param in the render function below:
 
@@ -29,7 +29,7 @@ class DefaultController extends Controller
     public function showAction($id)
     {
         $carRepository = $this->getDoctrine()->getRepository(Car::class);
-        $car = $carRepository->find($id);
+        $car = $carRepository->findCarWithDetailsById($id);
         return $this->render('CarBundle:Default:show.html.twig', ['car' => $car]);
     }
 }
