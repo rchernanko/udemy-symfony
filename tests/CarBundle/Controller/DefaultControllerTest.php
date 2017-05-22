@@ -2,6 +2,7 @@
 
 namespace CarBundle\Tests\Controller;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
@@ -12,6 +13,6 @@ class DefaultControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/');
 
-        $this->assertContains('Hello World', $client->getResponse()->getContent());
+        $this->assertContains('Welcome to AutoTrader', $client->getResponse()->getContent());
     }
 }
